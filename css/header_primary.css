@@ -1,0 +1,662 @@
+/*HEADER*/
+
+
+/*The base styling*/
+
+.header {
+    position: relative;
+    z-index: 1;
+    min-height: 64px;
+    width: 100%;
+    transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+
+/*Solid header modifier*/
+
+.header.header--solid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+
+/*Hidden header modifier*/
+
+.header--solid.is--hidden {
+    -webkit-transform: translateY(-64px);
+    -ms-transform: translateY(-64px);
+    transform: translateY(-64px);
+}
+
+
+/*Blue header modifier*/
+
+.header--solid.header--blue {
+    background-color: rgba(37, 67, 122, 1);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+
+/*Logo container, image of any size will fill max height of 44px and scale automatically*/
+
+.header__brand {
+    float: left;
+    display: block;
+    height: 44px;
+    margin-top: 10px;
+    margin-left: 24px;
+    z-index: 2;
+    -webkit-transition: -moz-transform .3s ease;
+    -moz-transition: -webkit-transform .3s ease;
+    -o-transition: -o-transform .3s ease;
+    transition: transform .3s ease;
+    /*removes tap highlight on old android devices*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/*Hiding all the logos in the header until we add a header modifier to show the logo we want*/
+
+.header__brand>.logo,
+.header__brand>.m-logo,
+.header__brand>.logo--wht,
+.header__brand>.m-logo--wht,
+.header--solid.header--blue .header__brand>.m-logo--wht,
+.header--solid.header--blue .header__brand>.logo--wht,
+.header--solid.header--blue .header__brand>.m-logo,
+.header--solid.header--blue .header__brand>.logo {
+    display: none;
+}
+
+
+/*Only displaying the mobile logo under 768px*/
+
+.header--solid .header__brand>.m-logo,
+.header--solid.header--blue .header__brand>.m-logo--wht {
+    display: block;
+}
+
+
+/*Push effect on clicking the logo*/
+
+.header__brand:active {
+    -webkit-transform: scale(0.94);
+    transform: scale(0.94);
+}
+
+
+/*Head media queries*/
+
+@media only screen and (min-width: 768px) {
+    /*Hiding the header at -106px on scroll*/
+    .header--solid.is--hidden {
+        -webkit-transform: translateY(-106px);
+        -ms-transform: translateY(-106px);
+        transform: translateY(-106px);
+    }
+    .header--solid .header__brand>.m-logo,
+    .header--solid.header--blue>.header__brand>.m-logo--wht {
+        display: none;
+    }
+    .header--solid .header__brand>.logo,
+    .header--solid.header--blue .header__brand>.logo--wht {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    /*Hiding the header at -64px on scroll*/
+    .header--solid.is--hidden {
+        -webkit-transform: translateY(-64px);
+        -ms-transform: translateY(-64px);
+        transform: translateY(-64px);
+    }
+}
+
+
+/*NAV TOGGLE*/
+
+.nav-toggle {
+    position: absolute;
+    cursor: pointer;
+    z-index: 4;
+    right: 18px;
+    top: 10px;
+    height: 44px;
+    width: 44px;
+    background-color: #191919;
+    -webkit-transition: -moz-transform .3s ease;
+    -moz-transition: -webkit-transform .3s ease;
+    -o-transition: -o-transform .3s ease;
+    transition: transform .3s ease;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    /* For some Androids */
+}
+
+.nav-toggle:active {
+    -webkit-transform: scale3d(0.94);
+    transform: scale(0.94);
+}
+
+
+/*Nav toggle container animated background after menu opens*/
+
+.nav-toggle:before {
+    /*TOGGLE BG*/
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    /* Force Hardware Acceleration in WebKit for smoother animation*/
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    transition-property: transform;
+}
+
+.nav-toggle:before {
+    background-color: #222222;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-delay: 0.4s;
+    -moz-transition-delay: 0.4s;
+    transition-delay: 0.4s;
+}
+
+
+/*Nav toggle container background animates once component modifier is applied*/
+
+.nav-toggle.is--close:before {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    transition-delay: 0s;
+}
+
+
+/*Nav toggle's hamburger middle line*/
+
+.nav-toggle__burger {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    width: 24px;
+    height: 1.5px;
+    background-color: #F9F9F9;
+    -webkit-transition: background-color 0.9s ease;
+    -moz-transition: background-color 0.9s ease;
+    transition: background-color 0.9s ease;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+
+/*top and buttom burger lines*/
+
+.nav-toggle__burger::before,
+.nav-toggle__burger::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    /* Force Hardware Acceleration in WebKit for smoother animation*/
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: -webkit-transform 0.4s, width 0.4s;
+    -moz-transition: -moz-transform 0.4s, width 0.4s;
+    transition: transform 0.4s, width 0.4s;
+    -webkit-transition-delay: 0.3s;
+    -moz-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+}
+
+.nav-toggle__burger::before {
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+    -webkit-transform: translateY(6px);
+    -moz-transform: translateY(6px);
+    -ms-transform: translateY(6px);
+    -o-transform: translateY(6px);
+    transform: translateY(6px);
+}
+
+.nav-toggle__burger::after {
+    -webkit-transform-origin: left bottom;
+    -moz-transform-origin: left bottom;
+    -ms-transform-origin: left bottom;
+    -o-transform-origin: left bottom;
+    transform-origin: left bottom;
+    -webkit-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    -o-transform: translateY(-6px);
+    transform: translateY(-6px);
+}
+
+
+/*Animating the burger lines into a back arrow after menu opens*/
+
+.nav-toggle.is--close .nav-toggle__burger::after,
+.nav-toggle.is--close .nav-toggle__burger::before {
+    width: 50%;
+    background-color: inherit;
+    -webkit-transition: -webkit-transform 0.4s, width 0.4s;
+    -moz-transition: -moz-transform 0.4s, width 0.4s;
+    transition: transform 0.4s, width 0.4s;
+    -webkit-transition-delay: 0.3s;
+    -moz-transition-delay: 0.3s;
+    transition-delay: 0.3s;
+}
+
+.nav-toggle.is--close .nav-toggle__burger::before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.nav-toggle.is--close .nav-toggle__burger::after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+
+/*Preventing page scrolling when mobile menu is open with this component modifier*/
+
+body.is--locked {
+    overflow: hidden !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media only screen and (min-width: 768px) {
+    /*Hiding the mobile nav toggle over 768px*/
+    .nav-toggle {
+        display: none;
+    }
+}
+
+
+/*MOBILE NAV*/
+
+.mobile-nav {
+    /*Menu is fullscreen by default it's hidden */
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    padding: 24px;
+    list-style: none;
+    background-color: #191919;
+    overflow: auto;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    -webkit-transition-delay: 0;
+    -moz-transition-delay: 0;
+    transition-delay: 0;
+}
+
+.mobile-nav.is--visible {
+    /* Component modifier to make the mobile menu visible */
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*Primary mobile menu links */
+
+.mobile-nav__primary-list {
+    list-style: none;
+    margin-top: 34px;
+    margin-bottom: 0;
+    padding: 0;
+    border-bottom: 1px solid #222222;
+}
+
+.mobile-nav__primary-item {
+    /*prefixes*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    position: relative;
+    letter-spacing: 1px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: left;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.mobile-nav__primary-link {
+    margin-left: 0;
+    color: #fff;
+}
+
+.mobile-nav__primary-link:hover {
+    color: #fff;
+}
+
+.mobile-nav__primary-icon {
+    position: absolute;
+    left: 0;
+    text-align: center;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    color: #fff;
+    font-size: 26px;
+}
+
+.mobile-nav__primary>li:last-child {
+    margin-bottom: 44px;
+}
+
+
+/*Secondary mobile menu links*/
+
+.mobile-nav__secondary-list {
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+}
+
+.mobile-nav__secondary-item {
+    letter-spacing: 1.2px;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: "Roboto", sans-serif;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 12px 0;
+}
+
+.mobile-nav__secondary-link {
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.mobile-nav__secondary-link:hover {
+    color: #fff;
+}
+
+.mobile-nav__logo {
+    margin-top: 46px;
+    display: block;
+    height: 26px;
+}
+
+@media only screen and (min-width: 768px) {
+    /*Hiding the mobile menu over 768px */
+    .m-menu {
+        display: none;
+    }
+}
+
+
+/*DESTOP NAV*/
+
+.primary-nav {
+    float: none;
+    display: none;
+    width: 100%;
+    margin: 0;
+}
+
+.primary-nav__list {
+    margin: 0 auto;
+    /*prefixes*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+    padding: 0;
+    list-style: none;
+    width: 66%;
+}
+
+.primary-nav__item {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    text-transform: capitalize;
+    margin: 0 4px;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    transition: all 0.25s ease 0s;
+    -moz-transition: all 0.25s ease 0s;
+    -webkit-transition: all 0.25s ease 0s;
+    -o-transition: all 0.25s ease 0s;
+}
+
+.primary-nav__link {
+    padding: 8px 14px;
+    display: block;
+    color: #202122;
+    text-decoration: none;
+}
+
+.primary-nav__link:hover,
+.primary-nav__link:focus {
+    color: #1C406C;
+}
+
+@media only screen and (min-width: 768px) {
+    /*The desktop primary nav*/
+    .primary-nav {
+        display: inline-block;
+        margin: 8px 0;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .primary-nav {
+        float: right;
+        width: auto;
+        margin: 12px 24px;
+    }
+    .primary-nav__list {
+        width: auto;
+    }
+    .header__wrap {
+        position: relative;
+        max-width: 992px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+}
+
+
+/*Secondary Nav*/
+
+
+/*The desktop secondary nav*/
+
+.secondary-nav-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #fff;
+    border-top: 1px solid #EEEDED;
+}
+
+.secondary-nav-wrapper:after {
+    /* subtle gradient layer on top right - to indicate it's possible to scroll */
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    opacity: 0;
+    height: 100%;
+    width: 44px;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(25, 25, 25, 0) 10%, rgba(25, 25, 25, 0.6) 100%, rgba(25, 25, 25, 0.6) 100%);
+    background: linear-gradient(to right, rgba(25, 25, 25, 0) 10%, rgba(25, 25, 25, 0.6) 100%, rgba(25, 25, 25, 0.6) 100%);
+    background: linear-gradient(to right, rgba(25, 25, 25, 0) 10%, rgba(25, 25, 25, 0.6) 100%, rgba(25, 25, 25, 0.6) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#191919', endColorstr='#191919', GradientType=1);
+}
+
+.secondary-nav {
+    position: relative;
+    max-width: 992px;
+    margin: 0 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.secondary-nav__list {
+    display: flex;
+    flex-flow: row;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.secondary-nav__item {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: space-around;
+    position: relative;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    text-transform: capitalize;
+}
+
+.secondary-nav__icon {
+    display: block;
+    vertical-align: middle;
+    color: #191919;
+    width: auto;
+    font-size: 26px;
+}
+
+.secondary-nav__link {
+    flex: 1;
+    padding: 8px;
+    display: block;
+    color: #191919;
+}
+
+.secondary-nav__link:hover,
+.secondary-nav__link:focus {
+    color: #191919;
+    font-weight: 800;
+}
+
+.secondary-nav__label {
+    font-size: 0.6875rem;
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.secondary-nav__label.is--visible {
+    font-size: 0.6875rem;
+    line-height: 1.2;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@media only screen and (min-width: 768px) {
+    .secondary-nav-wrapper {
+        margin: 0;
+        position: relative;
+        float: left;
+        background-color: #F6F6F6;
+    }
+    .secondary-nav__item {
+        font-size: 1rem;
+    }
+    .secondary-nav__icon {
+        display: inline-block;
+        vertical-align: middle;
+        color: #191919;
+        width: auto;
+        margin-right: 6px;
+        font-size: 28px;
+    }
+    .secondary-nav__label,
+    .secondary-nav__label.is--visible {
+        font-size: 1rem;
+        line-height: 1.2;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
